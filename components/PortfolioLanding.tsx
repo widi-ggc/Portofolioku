@@ -14,6 +14,12 @@ export default function PortfolioLanding({
 }) {
   const [activeFilter, setActiveFilter] = useState("Semua");
   const [modalWork, setModalWork] = useState<Work | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  function openModal(w: Work) {
+    setModalWork(w);
+    setActiveImageIndex(0);
+  }
 
   const categories = ["Semua", ...Array.from(new Set(works.map((w) => w.category)))];
   const filtered =
@@ -119,7 +125,7 @@ export default function PortfolioLanding({
             {filtered.map((w) => (
               <button
                 key={w.id}
-                onClick={() => setModalWork(w)}
+                onClick={() => openModal(w)}
                 className="card-tilt relative text-left bg-papersoft border-3 border-ink rounded-3xl shadow-hard hover:shadow-hard-lg transition overflow-visible"
               >
                 <span className="absolute -top-3 right-4 z-10 rotate-6 bg-pink text-white font-mono text-[10px] font-bold px-2.5 py-1 rounded-full border-2 border-ink">
@@ -235,10 +241,42 @@ export default function PortfolioLanding({
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={modalWork.image_url || "https://placehold.co/800x450/17151d/ffffff?text=Tanpa+Gambar"}
+                src={
+                  [modalWork.image_url, ...(modalWork.gallery_urls || [])][activeImageIndex] ||
+                  "https://placehold.co/800x450/17151d/ffffff?text=Tanpa+Gambar"
+                }
                 alt={modalWork.title}
                 className="w-full max-h-[420px] object-cover rounded-t-[21px]"
               />
+            )}
+            {[modalWork.image_url, ...(modalWork.gallery_urls || [])].filter(Boolean).length > 1 && (
+              <div className="flex gap-2 overflow-x-auto px-7 pt-4">
+                {[modalWork.image_url, ...(modalWork.gallery_urls || [])]
+                  .filter(Boolean)
+                  .map((url, idx) =>
+                    modalWork.video_url ? (
+                      <a key={idx} href={url as string} target="_blank" rel="noopener">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={url as string}
+                          alt=""
+                          className="w-16 h-16 object-cover rounded-lg border-2 border-ink flex-shrink-0"
+                        />
+                      </a>
+                    ) : (
+                      <button key={idx} onClick={() => setActiveImageIndex(idx)} type="button">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={url as string}
+                          alt=""
+                          className={`w-16 h-16 object-cover rounded-lg border-2 flex-shrink-0 ${
+                            idx === activeImageIndex ? "border-pink" : "border-ink"
+                          }`}
+                        />
+                      </button>
+                    )
+                  )}
+              </div>
             )}
             <div className="p-7">
               <span className="inline-block font-mono text-[11px] font-bold text-white bg-blue px-3 py-1.5 rounded-full mb-3">

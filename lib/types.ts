@@ -15,6 +15,7 @@ export type Work = {
   image_url: string | null;
   video_url: string | null;
   pdf_url: string | null;
+  gallery_urls: string[];
   created_at?: string;
 };
 

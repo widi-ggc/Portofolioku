@@ -10,8 +10,12 @@ create table if not exists works (
   image_url text,
   video_url text,
   pdf_url text,
+  gallery_urls text[] not null default '{}',
   created_at timestamptz default now()
 );
+
+-- Kalau tabel works sudah ada duluan (dari setup versi sebelumnya), jalankan baris ini saja:
+alter table works add column if not exists gallery_urls text[] not null default '{}';
 
 -- 2. Tabel profil (hanya 1 baris)
 create table if not exists profile (

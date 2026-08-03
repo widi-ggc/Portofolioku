@@ -41,6 +41,9 @@ export default function DashboardClient({
   const [form, setForm] = useState(emptyForm);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
+  const [existingGallery, setExistingGallery] = useState<string[]>([]);
+  const [formKey, setFormKey] = useState(0);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState("");
 
@@ -74,6 +77,12 @@ export default function DashboardClient({
       if (imageFile) imageUrl = await uploadFile(imageFile, "images");
       if (pdfFile) pdfUrl = await uploadFile(pdfFile, "pdfs");
 
+      const newGalleryUrls: string[] = [];
+      for (const f of galleryFiles) {
+        newGalleryUrls.push(await uploadFile(f, "gallery"));
+      }
+      const galleryUrls = [...existingGallery, ...newGalleryUrls];
+
       const payload = {
         title: form.title,
         category: form.category,
@@ -82,6 +91,7 @@ export default function DashboardClient({
         image_url: imageUrl,
         video_url: form.video_url,
         pdf_url: pdfUrl,
+        gallery_urls: galleryUrls,
       };
 
       if (form.id) {
@@ -104,6 +114,9 @@ export default function DashboardClient({
       setForm(emptyForm);
       setImageFile(null);
       setPdfFile(null);
+      setGalleryFiles([]);
+      setExistingGallery([]);
+      setFormKey((k) => k + 1); // memaksa input file kosong lagi
     } catch (err: any) {
       flashToast("Gagal menyimpan: " + err.message);
     } finally {
@@ -124,6 +137,9 @@ export default function DashboardClient({
     });
     setImageFile(null);
     setPdfFile(null);
+    setGalleryFiles([]);
+    setExistingGallery(w.gallery_urls || []);
+    setFormKey((k) => k + 1);
     window.scrollTo(0, 0);
   }
 
@@ -260,13 +276,46 @@ export default function DashboardClient({
                   <input value={form.video_url} onChange={(e) => setForm({ ...form, video_url: e.target.value })} className="input" placeholder="https://youtube.com/watch?v=... atau link share Google Drive" />
                 </Field>
                 <Field label={form.id ? "Ganti Gambar Sampul (opsional)" : "Unggah Gambar Sampul *"}>
-                  <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="input" required={!form.id && !form.image_url} />
+                  <input key={`img-${formKey}`} type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="input" required={!form.id && !form.image_url} />
                   {form.image_url && !imageFile && <p className="text-xs mt-1 text-ink/50">Gambar saat ini tersimpan.</p>}
                 </Field>
                 <Field label="Unggah Dokumen PDF (opsional)">
-                  <input type="file" accept="application/pdf" onChange={(e) => setPdfFile(e.target.files?.[0] || null)} className="input" />
+                  <input key={`pdf-${formKey}`} type="file" accept="application/pdf" onChange={(e) => setPdfFile(e.target.files?.[0] || null)} className="input" />
                   {form.pdf_url && !pdfFile && <p className="text-xs mt-1 text-ink/50">PDF saat ini tersimpan.</p>}
                 </Field>
+                <div className="sm:col-span-2">
+                  <Field label="Galeri Foto Tambahan (opsional, bisa pilih beberapa sekaligus)">
+                    <input
+                      key={`gallery-${formKey}`}
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={(e) => setGalleryFiles(Array.from(e.target.files || []))}
+                      className="input"
+                    />
+                    {galleryFiles.length > 0 && (
+                      <p className="text-xs mt-1 text-ink/50">{galleryFiles.length} foto baru siap diunggah.</p>
+                    )}
+                    {existingGallery.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {existingGallery.map((url, idx) => (
+                          <div key={url} className="relative">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={url} alt="" className="w-16 h-16 object-cover rounded-lg border-2 border-ink" />
+                            <button
+                              type="button"
+                              onClick={() => setExistingGallery((prev) => prev.filter((_, i) => i !== idx))}
+                              className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-dangerc text-white text-xs font-bold border-2 border-ink"
+                              title="Hapus dari galeri"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </Field>
+                </div>
                 <div className="sm:col-span-2">
                   <Field label="Deskripsi">
                     <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="input min-h-[80px]" />
@@ -278,7 +327,7 @@ export default function DashboardClient({
                   {saving ? "Menyimpan..." : form.id ? "Simpan Perubahan" : "Tambah Karya"}
                 </button>
                 {form.id && (
-                  <button type="button" onClick={() => { setForm(emptyForm); setImageFile(null); setPdfFile(null); }} className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-papersoft">
+                  <button type="button" onClick={() => { setForm(emptyForm); setImageFile(null); setPdfFile(null); setGalleryFiles([]); setExistingGallery([]); setFormKey((k) => k + 1); }} className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-papersoft">
                     Batal
                   </button>
                 )}
