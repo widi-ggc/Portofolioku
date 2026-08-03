@@ -256,8 +256,8 @@ export default function DashboardClient({
                 <Field label="Tahun">
                   <input value={form.year} onChange={(e) => setForm({ ...form, year: e.target.value })} className="input" placeholder="2025" />
                 </Field>
-                <Field label="URL Video (YouTube/Vimeo)">
-                  <input value={form.video_url} onChange={(e) => setForm({ ...form, video_url: e.target.value })} className="input" placeholder="https://youtube.com/watch?v=..." />
+                <Field label="URL Video (YouTube/Vimeo/Google Drive)">
+                  <input value={form.video_url} onChange={(e) => setForm({ ...form, video_url: e.target.value })} className="input" placeholder="https://youtube.com/watch?v=... atau link share Google Drive" />
                 </Field>
                 <Field label={form.id ? "Ganti Gambar Sampul (opsional)" : "Unggah Gambar Sampul *"}>
                   <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="input" required={!form.id && !form.image_url} />

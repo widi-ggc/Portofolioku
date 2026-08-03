@@ -47,6 +47,11 @@ export function getEmbedUrl(url: string | null): string {
       const id = u.pathname.split("/").filter(Boolean).pop();
       return `https://player.vimeo.com/video/${id}`;
     }
+    if (u.hostname.includes("drive.google.com")) {
+      // format link berbagi Google Drive: /file/d/FILE_ID/view
+      const match = u.pathname.match(/\/file\/d\/([^/]+)/);
+      if (match) return `https://drive.google.com/file/d/${match[1]}/preview`;
+    }
   } catch {
     // biarkan url apa adanya kalau gagal diparse
   }
