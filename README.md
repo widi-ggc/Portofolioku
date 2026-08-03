@@ -57,6 +57,17 @@ http://localhost:3000/admin/login untuk login admin.
   upload gambar & PDF langsung ke Supabase Storage), serta edit info profil.
   Halaman ini dilindungi — otomatis redirect ke halaman login kalau belum masuk.
 
+## Fitur Tema & Dark Mode
+
+- Admin bisa memilih salah satu dari **5 tema warna** di tab **Profil** pada
+  dashboard (Riso Cerah, Ocean Kalem, Sunset Hangat, Forest Earthy, Monokrom
+  Minimalis). Tema berlaku untuk seluruh halaman publik.
+- Ada tombol 🌙/☀️ di pojok kanan atas (baik halaman publik maupun dashboard
+  admin) untuk beralih mode gelap/terang. Pilihan ini tersimpan otomatis di
+  browser masing-masing pengunjung (tidak memengaruhi pengunjung lain).
+- Kalau kamu upgrade dari versi sebelumnya, jalankan ulang `supabase/schema.sql`
+  di SQL Editor Supabase dulu supaya kolom `theme` tersedia di tabel `profile`.
+
 ## Catatan
 
 - Halaman publik **tidak punya tombol atau tautan ke admin sama sekali** —

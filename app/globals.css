@@ -8,11 +8,78 @@
   --font-display: "Unbounded", sans-serif;
   --font-body: "Plus Jakarta Sans", sans-serif;
   --font-mono: "Space Mono", monospace;
+
+  /* latar & teks default (mode terang) */
+  --c-paper: 247 243 234;
+  --c-papersoft: 255 253 248;
+  --c-ink: 22 18 23;
+
+  /* aksen default (tema Riso) — dipakai sebagai fallback sebelum tema tersimpan diterapkan */
+  --c-pink: 255 63 164;
+  --c-blue: 47 76 255;
+  --c-yellow: 255 212 0;
+  --c-green: 0 192 139;
+  --c-dangerc: 230 57 80;
 }
 
+/* ===== MODE GELAP: berlaku untuk semua tema ===== */
+[data-mode="dark"] {
+  --c-paper: 24 21 28;
+  --c-papersoft: 34 30 41;
+  --c-ink: 241 236 231;
+}
+
+/* ===== TEMA WARNA (aksen tombol, badge, kategori) ===== */
+
+/* 1. Riso Cerah — pink, biru elektrik, kuning (default) */
+[data-theme="riso"] {
+  --c-pink: 255 63 164;
+  --c-blue: 47 76 255;
+  --c-yellow: 255 212 0;
+  --c-green: 0 192 139;
+  --c-dangerc: 230 57 80;
+}
+
+/* 2. Ocean Kalem — teal & biru laut */
+[data-theme="ocean"] {
+  --c-pink: 20 184 166;
+  --c-blue: 29 78 216;
+  --c-yellow: 125 211 252;
+  --c-green: 16 185 129;
+  --c-dangerc: 220 38 38;
+}
+
+/* 3. Sunset Hangat — koral, ungu, emas */
+[data-theme="sunset"] {
+  --c-pink: 255 107 74;
+  --c-blue: 109 40 217;
+  --c-yellow: 251 191 36;
+  --c-green: 245 158 11;
+  --c-dangerc: 220 38 38;
+}
+
+/* 4. Forest Earthy — hijau tua, coklat, lime */
+[data-theme="forest"] {
+  --c-pink: 21 128 61;
+  --c-blue: 120 72 22;
+  --c-yellow: 163 230 53;
+  --c-green: 77 124 15;
+  --c-dangerc: 185 28 28;
+}
+
+/* 5. Monokrom Minimalis — hitam, abu-abu */
+[data-theme="mono"] {
+  --c-pink: 39 39 42;
+  --c-blue: 82 82 91;
+  --c-yellow: 212 212 216;
+  --c-green: 113 113 122;
+  --c-dangerc: 185 28 28;
+}
+
+
 body {
-  background-color: #f7f3ea;
-  color: #161217;
+  background-color: rgb(var(--c-paper));
+  color: rgb(var(--c-ink));
 }
 
 .dots-bg {

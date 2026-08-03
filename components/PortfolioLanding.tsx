@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getEmbedUrl, mediaTag, type Profile, type Skill, type Work } from "@/lib/types";
+import DarkModeToggle from "@/components/DarkModeToggle";
 
 export default function PortfolioLanding({
   works,
@@ -15,6 +16,10 @@ export default function PortfolioLanding({
   const [activeFilter, setActiveFilter] = useState("Semua");
   const [modalWork, setModalWork] = useState<Work | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = profile.theme || "riso";
+  }, [profile.theme]);
 
   function openModal(w: Work) {
     setModalWork(w);
@@ -47,6 +52,7 @@ export default function PortfolioLanding({
           <a href="#skill" className="text-sm font-semibold hover:text-pink">Keahlian</a>
           <a href="#tentang" className="text-sm font-semibold hover:text-pink">Tentang</a>
           <a href="#kontak" className="text-sm font-semibold hover:text-pink">Kontak</a>
+          <DarkModeToggle />
         </div>
       </div>
 

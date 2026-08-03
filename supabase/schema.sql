@@ -28,8 +28,12 @@ create table if not exists profile (
   phone text default '',
   location text default '',
   availability text default 'Terbuka untuk proyek baru',
+  theme text not null default 'riso',
   constraint single_row check (id = 1)
 );
+
+-- Kalau tabel profile sudah ada duluan, jalankan baris ini saja:
+alter table profile add column if not exists theme text not null default 'riso';
 
 insert into profile (id) values (1) on conflict (id) do nothing;
 

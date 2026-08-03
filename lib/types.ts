@@ -19,6 +19,14 @@ export type Work = {
   created_at?: string;
 };
 
+export const THEME_OPTIONS = [
+  { id: "riso", label: "Riso Cerah — Pink, Biru, Kuning" },
+  { id: "ocean", label: "Ocean Kalem — Teal & Biru Laut" },
+  { id: "sunset", label: "Sunset Hangat — Koral, Ungu, Emas" },
+  { id: "forest", label: "Forest Earthy — Hijau & Coklat" },
+  { id: "mono", label: "Monokrom Minimalis — Hitam & Abu" },
+] as const;
+
 export type Profile = {
   id: number;
   name: string;
@@ -29,6 +37,7 @@ export type Profile = {
   phone: string;
   location: string;
   availability: string;
+  theme: string;
 };
 
 export function getEmbedUrl(url: string | null): string {

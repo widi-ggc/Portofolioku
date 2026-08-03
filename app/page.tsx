@@ -38,6 +38,7 @@ export default async function HomePage() {
           phone: "",
           location: "",
           availability: "",
+          theme: "riso",
         }
       }
     />

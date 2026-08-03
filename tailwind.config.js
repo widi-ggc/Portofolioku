@@ -1,17 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ["selector", '[data-mode="dark"]'],
   content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        paper: "#F7F3EA",
-        papersoft: "#FFFDF8",
-        ink: "#161217",
-        pink: "#FF3FA4",
-        blue: "#2F4CFF",
-        yellow: "#FFD400",
-        green: "#00C08B",
-        dangerc: "#E63950",
+        paper: "rgb(var(--c-paper) / <alpha-value>)",
+        papersoft: "rgb(var(--c-papersoft) / <alpha-value>)",
+        ink: "rgb(var(--c-ink) / <alpha-value>)",
+        pink: "rgb(var(--c-pink) / <alpha-value>)",
+        blue: "rgb(var(--c-blue) / <alpha-value>)",
+        yellow: "rgb(var(--c-yellow) / <alpha-value>)",
+        green: "rgb(var(--c-green) / <alpha-value>)",
+        dangerc: "rgb(var(--c-dangerc) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],
@@ -19,8 +20,8 @@ module.exports = {
         mono: ["var(--font-mono)", "monospace"],
       },
       boxShadow: {
-        hard: "4px 4px 0 #161217",
-        "hard-lg": "8px 8px 0 #161217",
+        hard: "4px 4px 0 rgb(var(--c-ink))",
+        "hard-lg": "8px 8px 0 rgb(var(--c-ink))",
       },
       borderWidth: { 3: "3px" },
     },
