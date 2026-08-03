@@ -246,7 +246,7 @@ export default function PortfolioLanding({
                   "https://placehold.co/800x450/17151d/ffffff?text=Tanpa+Gambar"
                 }
                 alt={modalWork.title}
-                className="w-full max-h-[420px] object-cover rounded-t-[21px]"
+                className="w-full max-h-[70vh] object-contain rounded-t-[21px] bg-ink/5"
               />
             )}
             {[modalWork.image_url, ...(modalWork.gallery_urls || [])].filter(Boolean).length > 1 && (
