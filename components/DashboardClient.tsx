@@ -226,7 +226,7 @@ export default function DashboardClient({
           <DarkModeToggle />
           <button
             onClick={handleLogout}
-            className="font-bold text-xs px-5 py-2.5 rounded-full border-3 border-ink bg-papersoft shadow-hard"
+            className="font-bold text-xs px-5 py-2.5 rounded-full border-card border-ink bg-papersoft shadow-hard"
           >
             Keluar
           </button>
@@ -267,7 +267,7 @@ export default function DashboardClient({
           <>
             <form
               onSubmit={handleWorkSubmit}
-              className="mb-9 p-6 border-3 border-ink rounded-3xl bg-papersoft shadow-hard"
+              className="mb-9 p-6 border-card border-ink rounded-card bg-papersoft shadow-hard"
             >
               <h3 className="font-bold text-lg mb-4">{form.id ? "Ubah Karya" : "Tambah Karya Baru"}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -331,18 +331,18 @@ export default function DashboardClient({
                 </div>
               </div>
               <div className="flex gap-2.5 mt-2">
-                <button type="submit" disabled={saving} className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-pink text-white shadow-hard disabled:opacity-60">
+                <button type="submit" disabled={saving} className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-pink text-white shadow-hard disabled:opacity-60">
                   {saving ? "Menyimpan..." : form.id ? "Simpan Perubahan" : "Tambah Karya"}
                 </button>
                 {form.id && (
-                  <button type="button" onClick={() => { setForm(emptyForm); setImageFile(null); setPdfFile(null); setGalleryFiles([]); setExistingGallery([]); setFormKey((k) => k + 1); }} className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-papersoft">
+                  <button type="button" onClick={() => { setForm(emptyForm); setImageFile(null); setPdfFile(null); setGalleryFiles([]); setExistingGallery([]); setFormKey((k) => k + 1); }} className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-papersoft">
                     Batal
                   </button>
                 )}
               </div>
             </form>
 
-            <div className="border-3 border-ink rounded-3xl overflow-hidden bg-papersoft">
+            <div className="border-card border-ink rounded-card overflow-hidden bg-papersoft">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-ink/5 border-b-2.5 border-ink">
@@ -379,7 +379,7 @@ export default function DashboardClient({
           <>
             <form
               onSubmit={handleSkillSubmit}
-              className="mb-9 p-6 border-3 border-ink rounded-3xl bg-papersoft shadow-hard max-w-xl"
+              className="mb-9 p-6 border-card border-ink rounded-card bg-papersoft shadow-hard max-w-xl"
             >
               <h3 className="font-bold text-lg mb-4">{skillForm.id ? "Ubah Skill" : "Tambah Skill Baru"}</h3>
               <Field label="Nama Software / Keahlian *">
@@ -411,18 +411,18 @@ export default function DashboardClient({
                 />
               </Field>
               <div className="flex gap-2.5 mt-2">
-                <button type="submit" disabled={saving} className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-pink text-white shadow-hard disabled:opacity-60">
+                <button type="submit" disabled={saving} className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-pink text-white shadow-hard disabled:opacity-60">
                   {saving ? "Menyimpan..." : skillForm.id ? "Simpan Perubahan" : "Tambah Skill"}
                 </button>
                 {skillForm.id && (
-                  <button type="button" onClick={() => setSkillForm(emptySkillForm)} className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-papersoft">
+                  <button type="button" onClick={() => setSkillForm(emptySkillForm)} className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-papersoft">
                     Batal
                   </button>
                 )}
               </div>
             </form>
 
-            <div className="border-3 border-ink rounded-3xl overflow-hidden bg-papersoft">
+            <div className="border-card border-ink rounded-card overflow-hidden bg-papersoft">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-ink/5 border-b-2.5 border-ink">
@@ -456,7 +456,7 @@ export default function DashboardClient({
             </div>
           </>
         ) : (
-          <form onSubmit={handleProfileSubmit} className="p-6 border-3 border-ink rounded-3xl bg-papersoft shadow-hard max-w-xl">
+          <form onSubmit={handleProfileSubmit} className="p-6 border-card border-ink rounded-card bg-papersoft shadow-hard max-w-xl">
             <Field label="Nama">
               <input value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} className="input" required />
             </Field>
@@ -508,7 +508,7 @@ export default function DashboardClient({
               <p className="text-xs text-ink/50 mt-2">Perubahan tema langsung terlihat di halaman ini sebagai pratinjau. Klik "Simpan Profil" untuk menerapkannya ke halaman publik.</p>
             </div>
 
-            <button type="submit" disabled={saving} className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-pink text-white shadow-hard disabled:opacity-60 mt-2">
+            <button type="submit" disabled={saving} className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-pink text-white shadow-hard disabled:opacity-60 mt-2">
               {saving ? "Menyimpan..." : "Simpan Profil"}
             </button>
           </form>
@@ -516,7 +516,7 @@ export default function DashboardClient({
       </div>
 
       {toast && (
-        <div className="fixed bottom-6 right-6 bg-green text-white font-mono font-bold text-xs px-5 py-3 rounded-full border-3 border-ink shadow-hard">
+        <div className="fixed bottom-6 right-6 bg-green text-white font-mono font-bold text-xs px-5 py-3 rounded-full border-card border-ink shadow-hard">
           {toast}
         </div>
       )}

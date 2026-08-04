@@ -42,7 +42,7 @@ export default function PortfolioLanding({
   return (
     <div className="min-h-screen bg-paper text-ink relative overflow-x-hidden">
       {/* NAV */}
-      <div className="sticky top-0 z-40 flex items-center justify-between px-6 md:px-8 py-4 bg-papersoft border-b-3 border-ink">
+      <div className="sticky top-0 z-40 flex items-center justify-between px-6 md:px-8 py-4 bg-papersoft border-b-card border-ink">
         <div className="font-display font-black text-xl flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-pink border-2 border-ink" />
           {profile.name}
@@ -59,20 +59,20 @@ export default function PortfolioLanding({
       {/* HERO */}
       <div className="relative max-w-4xl mx-auto px-6 md:px-8 pt-20 pb-16">
         <div
-          className="dots-bg absolute rounded-3xl"
+          className="dots-bg absolute rounded-card"
           style={{ width: 300, height: 300, right: 0, top: 10 }}
         />
         <div
-          className="absolute rounded-full bg-yellow opacity-50"
+          className="deco-blob absolute rounded-full bg-yellow opacity-50"
           style={{ width: 200, height: 200, right: -50, top: 60 }}
         />
         <div className="relative">
           <div className="flex gap-3 flex-wrap mb-6">
-            <span className="sticker inline-block bg-yellow border-3 border-ink rounded-full px-4 py-1.5 font-mono text-xs font-bold shadow-hard">
+            <span className="sticker inline-block bg-yellow border-card border-ink rounded-full px-4 py-1.5 font-mono text-xs font-bold shadow-hard">
               ✦ {profile.availability || "Terbuka untuk proyek baru"}
             </span>
             {profile.location && (
-              <span className="inline-block rotate-2 bg-green text-white border-3 border-ink rounded-full px-4 py-1.5 font-mono text-xs font-bold shadow-hard">
+              <span className="deco-rotate inline-block rotate-2 bg-green text-white border-card border-ink rounded-full px-4 py-1.5 font-mono text-xs font-bold shadow-hard">
                 📍 {profile.location}
               </span>
             )}
@@ -86,13 +86,13 @@ export default function PortfolioLanding({
           <div className="flex gap-3 flex-wrap">
             <a
               href="#karya"
-              className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-pink text-white shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition"
+              className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-pink text-white shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition"
             >
               Lihat Karya ↓
             </a>
             <a
               href="#kontak"
-              className="font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-papersoft shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition"
+              className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-papersoft shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition"
             >
               Hubungi Saya
             </a>
@@ -113,7 +113,7 @@ export default function PortfolioLanding({
             <button
               key={c}
               onClick={() => setActiveFilter(c)}
-              className={`font-bold text-xs px-4 py-2 rounded-full border-3 border-ink transition ${
+              className={`font-bold text-xs px-4 py-2 rounded-full border-card border-ink transition ${
                 activeFilter === c ? "bg-ink text-papersoft" : "bg-papersoft text-ink"
               }`}
             >
@@ -123,7 +123,7 @@ export default function PortfolioLanding({
         </div>
 
         {filtered.length === 0 ? (
-          <div className="border-3 border-dashed border-ink rounded-3xl p-14 text-center font-mono text-sm text-ink/60 bg-papersoft">
+          <div className="border-card border-dashed border-ink rounded-card p-14 text-center font-mono text-sm text-ink/60 bg-papersoft">
             Belum ada karya pada kategori ini.
           </div>
         ) : (
@@ -132,7 +132,7 @@ export default function PortfolioLanding({
               <button
                 key={w.id}
                 onClick={() => openModal(w)}
-                className="card-tilt relative text-left bg-papersoft border-3 border-ink rounded-3xl shadow-hard hover:shadow-hard-lg transition overflow-visible"
+                className="card-tilt relative text-left bg-papersoft border-card border-ink rounded-card shadow-hard hover:shadow-hard-lg transition overflow-visible"
               >
                 <span className="absolute -top-3 right-4 z-10 rotate-6 bg-pink text-white font-mono text-[10px] font-bold px-2.5 py-1 rounded-full border-2 border-ink">
                   {mediaTag(w)}
@@ -141,7 +141,7 @@ export default function PortfolioLanding({
                 <img
                   src={w.image_url || "https://placehold.co/600x450/17151d/ffffff?text=Tanpa+Gambar"}
                   alt={w.title}
-                  className="w-full aspect-[4/3] object-cover rounded-t-[20px] border-b-3 border-ink"
+                  className="w-full aspect-[4/3] object-cover rounded-t-card border-b-card border-ink"
                 />
                 <div className="p-4">
                   <div className="font-mono text-[10px] font-bold text-blue mb-1.5">
@@ -168,7 +168,7 @@ export default function PortfolioLanding({
                   {items.map((s, i) => (
                     <div
                       key={s.id}
-                      className={`flex items-center gap-2.5 border-3 border-ink rounded-full pl-4 pr-3 py-2 bg-papersoft shadow-hard ${
+                      className={`flex items-center gap-2.5 border-card border-ink rounded-full pl-4 pr-3 py-2 bg-papersoft shadow-hard ${
                         i % 3 === 0 ? "-rotate-1" : i % 3 === 1 ? "rotate-1" : "rotate-0"
                       }`}
                     >
@@ -195,7 +195,7 @@ export default function PortfolioLanding({
         <h2 className="font-display font-black text-3xl mb-7">Tentang</h2>
         <div className="flex gap-10 flex-wrap items-start">
           <p className="flex-1 min-w-[260px] text-base text-ink/80 font-medium">{profile.about}</p>
-          <div className="w-full sm:w-64 border-3 border-ink rounded-3xl p-5 bg-papersoft shadow-hard">
+          <div className="w-full sm:w-64 border-card border-ink rounded-card p-5 bg-papersoft shadow-hard">
             <MetaRow label="Peran" value={profile.role} />
             <MetaRow label="Lokasi" value={profile.location} />
             <MetaRow label="Email" value={profile.email} />
@@ -212,7 +212,7 @@ export default function PortfolioLanding({
         </p>
         <a
           href={`mailto:${profile.email}`}
-          className="inline-block font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-pink text-white shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition"
+          className="inline-block font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-pink text-white shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition"
         >
           Kirim Email ke Saya
         </a>
@@ -229,19 +229,19 @@ export default function PortfolioLanding({
           onClick={() => setModalWork(null)}
         >
           <div
-            className="bg-papersoft border-3 border-ink rounded-3xl max-w-2xl w-full max-h-[88vh] overflow-y-auto relative shadow-hard-lg"
+            className="bg-papersoft border-card border-ink rounded-card max-w-2xl w-full max-h-[88vh] overflow-y-auto relative shadow-hard-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setModalWork(null)}
-              className="absolute top-3.5 right-3.5 z-10 bg-yellow border-3 border-ink w-9 h-9 rounded-full font-bold"
+              className="absolute top-3.5 right-3.5 z-10 bg-yellow border-card border-ink w-9 h-9 rounded-full font-bold"
             >
               ✕
             </button>
             {modalWork.video_url ? (
               <iframe
                 src={getEmbedUrl(modalWork.video_url)}
-                className="w-full aspect-video rounded-t-[21px]"
+                className="w-full aspect-video rounded-t-card"
                 allowFullScreen
               />
             ) : (
@@ -252,7 +252,7 @@ export default function PortfolioLanding({
                   "https://placehold.co/800x450/17151d/ffffff?text=Tanpa+Gambar"
                 }
                 alt={modalWork.title}
-                className="w-full max-h-[70vh] object-contain rounded-t-[21px] bg-ink/5"
+                className="w-full max-h-[70vh] object-contain rounded-t-card bg-ink/5"
               />
             )}
             {[modalWork.image_url, ...(modalWork.gallery_urls || [])].filter(Boolean).length > 1 && (
@@ -296,7 +296,7 @@ export default function PortfolioLanding({
                     href={modalWork.pdf_url}
                     target="_blank"
                     rel="noopener"
-                    className="font-bold text-xs px-5 py-2.5 rounded-full border-3 border-ink bg-papersoft shadow-hard"
+                    className="font-bold text-xs px-5 py-2.5 rounded-full border-card border-ink bg-papersoft shadow-hard"
                   >
                     Buka Dokumen PDF
                   </a>
@@ -306,7 +306,7 @@ export default function PortfolioLanding({
                     href={modalWork.video_url}
                     target="_blank"
                     rel="noopener"
-                    className="font-bold text-xs px-5 py-2.5 rounded-full border-3 border-ink bg-papersoft shadow-hard"
+                    className="font-bold text-xs px-5 py-2.5 rounded-full border-card border-ink bg-papersoft shadow-hard"
                   >
                     Tonton di Sumber Asli
                   </a>

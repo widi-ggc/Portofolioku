@@ -20,10 +20,16 @@ module.exports = {
         mono: ["var(--font-mono)", "monospace"],
       },
       boxShadow: {
-        hard: "4px 4px 0 rgb(var(--c-ink))",
-        "hard-lg": "8px 8px 0 rgb(var(--c-ink))",
+        hard: "var(--shadow-card)",
+        "hard-lg": "var(--shadow-card-lg)",
       },
-      borderWidth: { 3: "3px" },
+      borderWidth: {
+        3: "3px",
+        card: "var(--border-w)",
+      },
+      borderRadius: {
+        card: "var(--radius-card)",
+      },
     },
   },
   plugins: [],

@@ -28,7 +28,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-paper flex items-center justify-center px-6">
-      <div className="max-w-sm w-full border-3 border-ink rounded-3xl p-9 bg-papersoft shadow-hard-lg">
+      <div className="max-w-sm w-full border-card border-ink rounded-card p-9 bg-papersoft shadow-hard-lg">
         <h1 className="font-display font-black text-2xl mb-2">Masuk Admin</h1>
         <p className="font-mono text-xs text-ink/60 mb-6">
           Masuk pakai akun admin yang sudah dibuat di Supabase.
@@ -58,7 +58,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full font-bold text-sm px-6 py-3 rounded-full border-3 border-ink bg-pink text-white shadow-hard disabled:opacity-60"
+            className="w-full font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-pink text-white shadow-hard disabled:opacity-60"
           >
             {loading ? "Memproses..." : "Masuk"}
           </button>

@@ -20,11 +20,12 @@ export type Work = {
 };
 
 export const THEME_OPTIONS = [
-  { id: "riso", label: "Riso Cerah — Pink, Biru, Kuning" },
-  { id: "ocean", label: "Ocean Kalem — Teal & Biru Laut" },
-  { id: "sunset", label: "Sunset Hangat — Koral, Ungu, Emas" },
-  { id: "forest", label: "Forest Earthy — Hijau & Coklat" },
-  { id: "mono", label: "Monokrom Minimalis — Hitam & Abu" },
+  { id: "riso", label: "Riso Brutalist — border tebal, shadow keras, penuh dekorasi" },
+  { id: "ocean", label: "Minimalis Elegan — garis tipis, shadow lembut, font serif" },
+  { id: "sunset", label: "Glass Modern — sudut sangat bulat, shadow glow warna" },
+  { id: "forest", label: "Korporat Tegas — sudut tajam, navy/steel, rapi" },
+  { id: "mono", label: "Pastel Playful — sudut sangat bulat, warna lembut" },
+  { id: "pixel", label: "Pixel Retro — sudut kotak, shadow blok, font 8-bit" },
 ] as const;
 
 export type Profile = {

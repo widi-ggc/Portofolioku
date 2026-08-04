@@ -33,7 +33,7 @@ export default function DarkModeToggle() {
     <button
       onClick={toggle}
       aria-label="Ganti mode gelap/terang"
-      className="w-9 h-9 flex items-center justify-center rounded-full border-3 border-ink bg-papersoft shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition text-sm"
+      className="w-9 h-9 flex items-center justify-center rounded-full border-card border-ink bg-papersoft shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg transition text-sm"
       title={mode === "light" ? "Aktifkan mode gelap" : "Aktifkan mode terang"}
     >
       {mode === "light" ? "🌙" : "☀️"}

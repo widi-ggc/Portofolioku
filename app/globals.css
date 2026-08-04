@@ -1,11 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Newsreader:ital,wght@0,500;0,600;1,500&family=Sora:wght@600;700;800&family=Space+Grotesk:wght@600;700&family=Quicksand:wght@600;700&family=Press+Start+2P&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-display: "Unbounded", sans-serif;
   --font-body: "Plus Jakarta Sans", sans-serif;
   --font-mono: "Space Mono", monospace;
 
@@ -14,68 +13,114 @@
   --c-papersoft: 255 253 248;
   --c-ink: 22 18 23;
 
-  /* aksen default (tema Riso) — dipakai sebagai fallback sebelum tema tersimpan diterapkan */
+  /* fallback sebelum tema tersimpan diterapkan (sama seperti tema riso) */
+  --font-display: "Unbounded", sans-serif;
   --c-pink: 255 63 164;
   --c-blue: 47 76 255;
   --c-yellow: 255 212 0;
   --c-green: 0 192 139;
   --c-dangerc: 230 57 80;
+  --border-w: 3px;
+  --radius-card: 20px;
+  --shadow-card: 4px 4px 0 rgb(var(--c-ink));
+  --shadow-card-lg: 8px 8px 0 rgb(var(--c-ink));
 }
 
-/* ===== MODE GELAP: berlaku untuk semua tema ===== */
+/* ===== MODE GELAP: berlaku untuk semua tema (hanya latar & teks yang berubah) ===== */
 [data-mode="dark"] {
   --c-paper: 24 21 28;
   --c-papersoft: 34 30 41;
   --c-ink: 241 236 231;
 }
 
-/* ===== TEMA WARNA (aksen tombol, badge, kategori) ===== */
+/* =========================================================
+   TEMA — tiap tema mengubah WARNA sekaligus GAYA VISUAL:
+   ketebalan garis, sudut, jenis shadow, dan font judul.
+   ========================================================= */
 
-/* 1. Riso Cerah — pink, biru elektrik, kuning (default) */
+/* 1. Riso Brutalist — border tebal, shadow keras offset, penuh dekorasi */
 [data-theme="riso"] {
+  --font-display: "Unbounded", sans-serif;
   --c-pink: 255 63 164;
   --c-blue: 47 76 255;
   --c-yellow: 255 212 0;
   --c-green: 0 192 139;
   --c-dangerc: 230 57 80;
+  --border-w: 3px;
+  --radius-card: 20px;
+  --shadow-card: 4px 4px 0 rgb(var(--c-ink));
+  --shadow-card-lg: 8px 8px 0 rgb(var(--c-ink));
 }
 
-/* 2. Ocean Kalem — teal & biru laut */
+/* 2. Minimalis Elegan — garis tipis, shadow lembut blur, font serif, tanpa dekorasi */
 [data-theme="ocean"] {
-  --c-pink: 20 184 166;
-  --c-blue: 29 78 216;
-  --c-yellow: 125 211 252;
-  --c-green: 16 185 129;
-  --c-dangerc: 220 38 38;
+  --font-display: "Newsreader", serif;
+  --c-pink: 15 118 110;
+  --c-blue: 51 65 85;
+  --c-yellow: 180 140 90;
+  --c-green: 107 143 113;
+  --c-dangerc: 185 28 28;
+  --border-w: 1px;
+  --radius-card: 10px;
+  --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.10);
+  --shadow-card-lg: 0 16px 40px rgba(15, 23, 42, 0.14);
 }
 
-/* 3. Sunset Hangat — koral, ungu, emas */
+/* 3. Glass Modern — border tipis, shadow glow lembut, sudut sangat bulat */
 [data-theme="sunset"] {
-  --c-pink: 255 107 74;
-  --c-blue: 109 40 217;
-  --c-yellow: 251 191 36;
-  --c-green: 245 158 11;
+  --font-display: "Sora", sans-serif;
+  --c-pink: 251 113 133;
+  --c-blue: 139 92 246;
+  --c-yellow: 252 211 77;
+  --c-green: 52 211 153;
   --c-dangerc: 220 38 38;
+  --border-w: 1px;
+  --radius-card: 26px;
+  --shadow-card: 0 8px 32px rgba(139, 92, 246, 0.22);
+  --shadow-card-lg: 0 16px 48px rgba(139, 92, 246, 0.28);
 }
 
-/* 4. Forest Earthy — hijau tua, coklat, lime */
+/* 4. Korporat Tegas — sudut tajam, shadow tipis, font structured, navy/steel */
 [data-theme="forest"] {
-  --c-pink: 21 128 61;
-  --c-blue: 120 72 22;
-  --c-yellow: 163 230 53;
-  --c-green: 77 124 15;
+  --font-display: "Space Grotesk", sans-serif;
+  --c-pink: 30 58 138;
+  --c-blue: 15 23 42;
+  --c-yellow: 148 163 184;
+  --c-green: 14 165 233;
   --c-dangerc: 185 28 28;
+  --border-w: 2px;
+  --radius-card: 6px;
+  --shadow-card: 0 2px 10px rgba(15, 23, 42, 0.16);
+  --shadow-card-lg: 0 6px 20px rgba(15, 23, 42, 0.20);
 }
 
-/* 5. Monokrom Minimalis — hitam, abu-abu */
+/* 5. Pastel Playful — sudut sangat bulat, warna lembut, shadow berwarna */
 [data-theme="mono"] {
-  --c-pink: 39 39 42;
-  --c-blue: 82 82 91;
-  --c-yellow: 212 212 216;
-  --c-green: 113 113 122;
-  --c-dangerc: 185 28 28;
+  --font-display: "Quicksand", sans-serif;
+  --c-pink: 244 114 182;
+  --c-blue: 96 165 250;
+  --c-yellow: 253 230 138;
+  --c-green: 134 239 172;
+  --c-dangerc: 248 113 113;
+  --border-w: 2px;
+  --radius-card: 28px;
+  --shadow-card: 0 10px 24px rgba(244, 114, 182, 0.22);
+  --shadow-card-lg: 0 18px 36px rgba(244, 114, 182, 0.28);
 }
 
+/* 6. Pixel Retro — sudut kotak (0 radius), border tebal, shadow blok, font 8-bit */
+[data-theme="pixel"] {
+  --font-display: "Press Start 2P", monospace;
+  --c-pink: 255 56 100;
+  --c-blue: 41 121 255;
+  --c-yellow: 255 235 59;
+  --c-green: 67 214 117;
+  --c-dangerc: 211 47 47;
+  --border-w: 4px;
+  --radius-card: 0px;
+  --shadow-card: 6px 6px 0 rgb(var(--c-ink));
+  --shadow-card-lg: 10px 10px 0 rgb(var(--c-ink));
+}
 
 body {
   background-color: rgb(var(--c-paper));
@@ -83,7 +128,7 @@ body {
 }
 
 .dots-bg {
-  background-image: radial-gradient(#161217 1.4px, transparent 1.4px);
+  background-image: radial-gradient(rgb(var(--c-ink)) 1.4px, transparent 1.4px);
   background-size: 18px 18px;
   opacity: 0.08;
 }
@@ -103,4 +148,39 @@ body {
 }
 .card-tilt:hover {
   transform: translateY(-4px) rotate(0deg);
+}
+
+/* Dekorasi (halftone, blob, kemiringan kartu, stiker) cuma tampil di tema Riso Brutalist —
+   tema lain sengaja lebih bersih/rapi sesuai gaya masing-masing. */
+[data-theme]:not([data-theme="riso"]):not([data-theme="pixel"]) .dots-bg,
+[data-theme]:not([data-theme="riso"]):not([data-theme="pixel"]) .deco-blob {
+  display: none;
+}
+[data-theme]:not([data-theme="riso"]) .card-tilt,
+[data-theme]:not([data-theme="riso"]) .card-tilt:nth-of-type(3n + 1),
+[data-theme]:not([data-theme="riso"]) .card-tilt:nth-of-type(3n + 2),
+[data-theme]:not([data-theme="riso"]) .card-tilt:nth-of-type(3n + 3) {
+  transform: none;
+}
+[data-theme]:not([data-theme="riso"]) .sticker,
+[data-theme]:not([data-theme="riso"]) .deco-rotate {
+  transform: none !important;
+}
+
+/* Font pixel (Press Start 2P) jauh lebih lebar per-karakter — kecilkan supaya tidak meluber */
+[data-theme="pixel"] .font-display {
+  line-height: 1.5;
+}
+[data-theme="pixel"] h1.font-display,
+[data-theme="pixel"] h1 {
+  font-size: clamp(22px, 4.5vw, 40px) !important;
+}
+[data-theme="pixel"] h2.font-display,
+[data-theme="pixel"] h2 {
+  font-size: 20px !important;
+}
+[data-theme="pixel"] h3.font-display,
+[data-theme="pixel"] h3 {
+  font-size: 13px !important;
+  line-height: 1.6;
 }
