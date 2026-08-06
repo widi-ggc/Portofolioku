@@ -6,6 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { mediaTag, THEME_OPTIONS, type Profile, type Skill, type Work } from "@/lib/types";
 import DarkModeToggle from "@/components/DarkModeToggle";
+import { watermarkImage, processPdf } from "@/lib/watermark";
 
 const BUCKET = "portfolio-media";
 
@@ -63,10 +64,28 @@ export default function DashboardClient({
     router.refresh();
   }
 
-  async function uploadFile(file: File, prefix: string): Promise<string> {
-    const ext = file.name.split(".").pop();
+  async function uploadProcessedFile(
+    file: File,
+    prefix: string,
+    kind: "image" | "pdf"
+  ): Promise<string> {
+    const watermarkText = `© ${profile.name || "Portofolio"}`;
+    let blob: Blob = file;
+    let ext = file.name.split(".").pop() || (kind === "pdf" ? "pdf" : "jpg");
+    let contentType = file.type;
+
+    if (kind === "image") {
+      blob = await watermarkImage(file, watermarkText);
+      ext = "jpg";
+      contentType = "image/jpeg";
+    } else if (kind === "pdf") {
+      blob = await processPdf(file, watermarkText, 15);
+      ext = "pdf";
+      contentType = "application/pdf";
+    }
+
     const path = `${prefix}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const { error } = await supabase.storage.from(BUCKET).upload(path, file);
+    const { error } = await supabase.storage.from(BUCKET).upload(path, blob, { contentType });
     if (error) throw error;
     const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
     return data.publicUrl;
@@ -79,12 +98,12 @@ export default function DashboardClient({
       let imageUrl = form.image_url;
       let pdfUrl = form.pdf_url;
 
-      if (imageFile) imageUrl = await uploadFile(imageFile, "images");
-      if (pdfFile) pdfUrl = await uploadFile(pdfFile, "pdfs");
+      if (imageFile) imageUrl = await uploadProcessedFile(imageFile, "images", "image");
+      if (pdfFile) pdfUrl = await uploadProcessedFile(pdfFile, "pdfs", "pdf");
 
       const newGalleryUrls: string[] = [];
       for (const f of galleryFiles) {
-        newGalleryUrls.push(await uploadFile(f, "gallery"));
+        newGalleryUrls.push(await uploadProcessedFile(f, "gallery", "image"));
       }
       const galleryUrls = [...existingGallery, ...newGalleryUrls];
 
@@ -286,10 +305,12 @@ export default function DashboardClient({
                 <Field label={form.id ? "Ganti Gambar Sampul (opsional)" : "Unggah Gambar Sampul *"}>
                   <input key={`img-${formKey}`} type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="input" required={!form.id && !form.image_url} />
                   {form.image_url && !imageFile && <p className="text-xs mt-1 text-ink/50">Gambar saat ini tersimpan.</p>}
+                  <p className="text-xs mt-1 text-ink/50">🔒 Otomatis diberi watermark transparan saat disimpan.</p>
                 </Field>
                 <Field label="Unggah Dokumen PDF (opsional)">
                   <input key={`pdf-${formKey}`} type="file" accept="application/pdf" onChange={(e) => setPdfFile(e.target.files?.[0] || null)} className="input" />
                   {form.pdf_url && !pdfFile && <p className="text-xs mt-1 text-ink/50">PDF saat ini tersimpan.</p>}
+                  <p className="text-xs mt-1 text-ink/50">🔒 Otomatis diberi watermark & dibatasi maksimal 15 halaman.</p>
                 </Field>
                 <div className="sm:col-span-2">
                   <Field label="Galeri Foto Tambahan (opsional, bisa pilih beberapa sekaligus)">
@@ -302,7 +323,7 @@ export default function DashboardClient({
                       className="input"
                     />
                     {galleryFiles.length > 0 && (
-                      <p className="text-xs mt-1 text-ink/50">{galleryFiles.length} foto baru siap diunggah.</p>
+                      <p className="text-xs mt-1 text-ink/50">{galleryFiles.length} foto baru siap diunggah (otomatis diberi watermark 🔒).</p>
                     )}
                     {existingGallery.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-3">
@@ -332,7 +353,7 @@ export default function DashboardClient({
               </div>
               <div className="flex gap-2.5 mt-2">
                 <button type="submit" disabled={saving} className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-pink text-white shadow-hard disabled:opacity-60">
-                  {saving ? "Menyimpan..." : form.id ? "Simpan Perubahan" : "Tambah Karya"}
+                  {saving ? "Memproses watermark & menyimpan..." : form.id ? "Simpan Perubahan" : "Tambah Karya"}
                 </button>
                 {form.id && (
                   <button type="button" onClick={() => { setForm(emptyForm); setImageFile(null); setPdfFile(null); setGalleryFiles([]); setExistingGallery([]); setFormKey((k) => k + 1); }} className="font-bold text-sm px-6 py-3 rounded-full border-card border-ink bg-papersoft">

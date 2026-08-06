@@ -68,6 +68,26 @@ http://localhost:3000/admin/login untuk login admin.
 - Kalau kamu upgrade dari versi sebelumnya, jalankan ulang `supabase/schema.sql`
   di SQL Editor Supabase dulu supaya kolom `theme` tersedia di tabel `profile`.
 
+## Proteksi Karya (Watermark & Pembatasan Halaman)
+
+Untuk mencegah kebocoran file kerja asli beresolusi/berhalaman penuh, setiap
+kali admin mengunggah file lewat dashboard, prosesnya berjalan **di browser
+sebelum file dikirim ke server**:
+
+- **Gambar (sampul & galeri):** otomatis diberi watermark teks transparan
+  yang berulang secara diagonal di seluruh gambar (memakai nama dari Profil).
+- **PDF:** otomatis diberi watermark transparan di setiap halaman, DAN
+  **dipotong maksimal 15 halaman pertama** — sisa halaman tidak pernah
+  terupload ke server sama sekali.
+
+Karena diproses di browser (bukan file asli yang diunggah), berkas asli
+beresolusi/berhalaman penuh di komputer kamu tidak pernah terkirim ke internet.
+
+**Batasan:** proteksi ini hanya berlaku untuk file yang diunggah *setelah*
+fitur ini aktif. Karya yang sudah pernah diunggah sebelumnya tidak otomatis
+diberi watermark — perlu diedit ulang (unggah ulang filenya) kalau ingin
+diberi proteksi yang sama.
+
 ## Catatan
 
 - Halaman publik **tidak punya tombol atau tautan ke admin sama sekali** —
